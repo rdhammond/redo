@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-xs navbar-light bg-light">
+  <a class="navbar-brand" href="#">Redo</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <%= form_with scope: :search, class: "form-inline my-2 my-xs-0" do |f| %>
+      <%= f.text_field :search, class: "form-control mr-sm-2", type: "search", placeholder: "Search", aria_label: "Search" %>
+      <button class="btn btn-outline-success my-2 my-xs-0" type="submit">Search</button>
+    <% end %>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2>Add New Task</h2>
+      <%= form_with scope: :task, class: "form-inline" do |f| %>
+        <%= f.label "Task Description", class: "sr-only", for: "description" %>
+        <%= f.text_field :description, class: "form-control form-control-lg", id: "description", placeholder: "Task Description" %>
+        <button class="btn btn-primary btn-large">Add</button>
+      <% end %>
+    </div>
+  </div>
+  <% if @tasks.length > 0 %>
+    <div class="card-deck">
+      <%= @tasks.each do |t| %>
+        <%= render "shared/_card", task: t %>
+      <% end %>
+    </div>
+  <% else %>
+    <h2 class="text-muted">No tasks. Why not add one?</h2>
+  <% end %>
+</div>

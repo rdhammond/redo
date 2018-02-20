@@ -1,0 +1,12 @@
+<div class="card task-card">
+  <div class="card-body">
+    <h5><%= :description %></h5>
+  </div>
+  <div class="card-footer">
+    <%= form_with scope: :task do |f| %>
+      <% button_text = :done ? "Reset" : "Complete" %>
+      <% button_type = :done ? "secondary" : "primary" %>
+      <%= f.submit button_text, "btn btn-#{button_type}" %>
+    <% end %>
+  </div>
+</div>
