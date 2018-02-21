@@ -1,33 +1,44 @@
-<nav class="navbar navbar-expand-xs navbar-light bg-light">
+<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
   <a class="navbar-brand" href="#">Redo</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <%= form_with scope: :search, class: "form-inline my-2 my-xs-0" do |f| %>
-      <%= f.text_field :search, class: "form-control mr-sm-2", type: "search", placeholder: "Search", aria_label: "Search" %>
-      <button class="btn btn-outline-success my-2 my-xs-0" type="submit">Search</button>
+    <%= form_tag tasks_path, class: "form-inline" do %>
+      <%= text_field_tag "search-text", nil, class: "form-inline mr-sm-2" %>
+      <%= button_tag "Search", id: "search-button", type: "button", class: "btn btn-outline-success my-2 my-sm-0" %>
     <% end %>
   </div>
 </nav>
-<div class="container">
-  <div class="row">
+<div class="container mt-6">
+  <div class="row mb-1">
     <div class="col">
-      <h2>Add New Task</h2>
-      <%= form_with scope: :task, class: "form-inline" do |f| %>
-        <%= f.label "Task Description", class: "sr-only", for: "description" %>
-        <%= f.text_field :description, class: "form-control form-control-lg", id: "description", placeholder: "Task Description" %>
-        <button class="btn btn-primary btn-large">Add</button>
-      <% end %>
+      <h2 class="text-center">Add New Task</h2>
     </div>
   </div>
-  <% if @tasks.length > 0 %>
-    <div class="card-deck">
-      <%= @tasks.each do |t| %>
+  <%= form_with scope: :task do |f| %>
+    <div class="row align-items-center mb-5">
+      <div class="col-xs-12 col-sm-7">
+        <%= f.text_field :description, class: "form-control form-control-lg", id: "description", placeholder: "Task Description" %>
+      </div>
+      <div class="col-xs-8 col-sm-3">
+        <%= f.select :type, task_types, {}, {class: 'form-control form-control-lg'} %>
+      </div>
+      <div class="col-xs-4 col-sm-2">
+        <%= f.submit "Add", class: "btn btn-primary btn-large" %>
+      </div>
+    </div>
+  <% end %>
+  <div class="tasks">
+    <div id="tasks-deck" class="card-deck <%= @tasks.length == 0 && "d-none" %>">
+      <% @tasks.each do |t| %>
         <%= render "shared/_card", task: t %>
       <% end %>
     </div>
-  <% else %>
-    <h2 class="text-muted">No tasks. Why not add one?</h2>
-  <% end %>
+    <div id="no-search-results" class="row <%= @tasks.length > 0 && "d-none" %>"> 
+      <div class="col">
+        <p class="text-center text-muted">No tasks yet. Why not add one?</p>
+      </div>
+    </div>
+  </div>
 </div>

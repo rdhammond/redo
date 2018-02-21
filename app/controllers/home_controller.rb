@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    # TODO
-    @tasks = []
+    @tasks = Task.all
+    @task = Task.new
   end
 end
