@@ -1,12 +1,16 @@
-<div class="card task-card">
+<div class="card">
   <div class="card-body">
-    <h5><%= :description %></h5>
+    <h5><%= @task.description %></h5>
   </div>
   <div class="card-footer">
-    <%= form_with scope: :task do |f| %>
-      <% button_text = :done ? "Reset" : "Complete" %>
-      <% button_type = :done ? "secondary" : "primary" %>
-      <%= f.submit button_text, "btn btn-#{button_type}" %>
+    <%= form_with scope: :task, url: tasks_path do |f| %>
+      <% if :done %>
+        <%= f.hidden_field :done, value: false %>
+        <%= f.submit "Reset", class: "btn btn-secondary" %>
+      <% else %>
+        <%= f.hidden_field :done, value: true %>
+        <%= f.submit "Done", class: "btn btn-primary" %>
+      <% end %>
     <% end %>
   </div>
 </div>
