@@ -1,7 +1,13 @@
+# This originalEvent stuff cannot POSSIBLY be right, but for now,
+# it's working.
+#
 $(document).ready ->
-  $('#add-form').on "ajax:success", (e) ->
-    $('#add-form')[0].reset()
+  $('#add-form').on 'ajax:success', (e) ->
+    $(this)[0].reset()
+    xhr = e.originalEvent.detail[2]
+    $('#tasks .card-deck').append xhr.responseText
 
-    # ** HACK: This cannot POSSIBLY be right, but it works for now.
-    data = e.originalEvent.detail[2].responseText
-    $('#tasks .card-deck').append data
+  $('#search-form').on 'ajax:success', (e) ->
+    $('#search-form')[0].reset()
+    xhr = e.originalEvent.detail[2]
+    $('#tasks .card-deck').html xhr.responseText
