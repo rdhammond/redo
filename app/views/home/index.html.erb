@@ -2,15 +2,12 @@
   <%= render "header" %>
 </div>
 <div class="container mt-6">
-  <div class="row mb-1">
-    <div class="col">
-      <h2 class="text-center">Add New Task</h2>
-    </div>
-  </div>
   <div id="add">
-    <%= render "add" %>
+    <%= render partial: "shared/add_task", object: @task, as: :task %>
   </div>
   <div id="tasks">
-    <%= render "shared/cards", id: "tasks-deck", tasks: @tasks %>
+    <div class="card-deck">
+      <%= render partial: "tasks/task", collection: @tasks, as: :task %>
+    </div>
   </div>
 </div>

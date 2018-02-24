@@ -1,18 +1,24 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :update, :destroy]
 
+  # GET /tasks/new
+  def new
+    @task = Task.new
+  end
+
   # GET /tasks
   # GET /tasks.json
   def index
-    if params[:search]
-      @tasks = Task.where("description LIKE ?", "%#{params[:search]}%")
+    search = params[:search]
+    if search
+      @tasks = Task.where("description LIKE ?", "%#{search}%")
     else
       @tasks = Task.all
     end
 
     respond_to do |format|
-      format.html { render :index, tasks: @tasks }
-      format.json { render :index, tasks: @tasks }
+      format.js
+      format.json { render json: @tasks }
     end
   end
 
@@ -20,8 +26,8 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     respond_to do |format|
-      format.html { render :show, task: @task }
-      format.json { render :show, task: @task }
+      format.html
+      format.json { render json: @task }
     end
   end
 
@@ -29,14 +35,17 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
+    @task.done = false
 
-    respond_to do |format|
-      if @task.save
-        format.html { render :show, task: @task }
-        format.json { render :show, task: @task }
-      else
-        format.html { render :error, errors: @task.errors }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
+    if @task.save
+      respond_to do |format|
+        format.html { render partial: 'task', content_type: 'text/html', locals: {task: @task} }
+        format.json { render json: @task }
+      end
+    else
+      respond_to do |format|
+        format.html { render :error }
+        format.json { render json: @task, status: :unprocessable_entity }
       end
     end
   end
@@ -44,25 +53,10 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks
   # PATCH/PUT /tasks/1.json
   def update
-    respond_to do |format|
-      if @task.update(task_params)
-        format.html { render "shared/card", task: @task }
-        format.json { render :show, task: @task }
-      else
-        format.html { render :error, errors: @task.errors }
-        format.json { render json: @task.errors, status: :unprocessable_entity }
-      end
-    end
   end
 
-  # DELETE /tasks
   # DELETE /tasks/1.json
   def destroy
-    @task.destroy
-    respond_to do |format|
-      format.html { head :no_content }
-      format.json { head :no_content }
-    end
   end
 
   private
