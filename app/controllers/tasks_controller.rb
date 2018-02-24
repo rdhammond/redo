@@ -5,13 +5,13 @@ class TasksController < ApplicationController
   # GET /tasks.json
   def index
     if params[:search]
-      @tasks = Task.where(description: params[:search])
+      @tasks = Task.where("description LIKE ?", "%#{params[:search]}%")
     else
       @tasks = Task.all
     end
 
     respond_to do |format|
-      format.html { render "shared/cards", tasks: @tasks }
+      format.html { render :index, tasks: @tasks }
       format.json { render :index, tasks: @tasks }
     end
   end
@@ -20,7 +20,7 @@ class TasksController < ApplicationController
   # GET /tasks/1.json
   def show
     respond_to do |format|
-      format.html { render "shared/card", task: @task }
+      format.html { render :show, task: @task }
       format.json { render :show, task: @task }
     end
   end
@@ -32,7 +32,7 @@ class TasksController < ApplicationController
 
     respond_to do |format|
       if @task.save
-        format.html { render "shared/card", task: @task }
+        format.html { render :show, task: @task }
         format.json { render :show, task: @task }
       else
         format.html { render :error, errors: @task.errors }

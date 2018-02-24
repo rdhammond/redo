@@ -1,6 +1,6 @@
-<% if @tasks.length > 0 %>
-  <div class="card-deck">
-    <% @tasks.each do |t| %>
+<% if tasks.length > 0 %>
+  <div class="card-deck task-cards">
+    <% tasks.each do |t| %>
       <%= render "shared/card", task: t %>
     <% end %>
   </div>

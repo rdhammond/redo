@@ -1,6 +1,7 @@
 class Task < ApplicationRecord
-  enum task_types: [ :daily, :weekly, :semimonthly, :monthly, :semiyearly, :yearly ]
   validates :description, presence: true
-  validates :task_types, presence: true
-  validates :done, presence: true
+  validates :task_type, presence: true
+  validates :done, inclusion: {in: [true, false]}
+
+  enum task_type: [ :daily, :weekly, :semi_monthly, :monthly, :semi_yearly, :yearly ]
 end

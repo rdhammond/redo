@@ -4,9 +4,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <%= form_with url: tasks_path do |f| %>
-      <%= f.text_field :search, class: "mr-sm-2" %>
-      <%= f.submit "Search", class: "btn btn-outline-success my-2 my-sm-0" %>
-    <% end %>
+    <input id="search-text" type="text" class="mr-sm-2">
+    <button id="search-button" type="button" class="btn btn-outline-success my-2 my-sm-m0" data-url="<%= tasks_path %>">Search</button>
   </div>
 </nav>
