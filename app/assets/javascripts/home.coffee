@@ -11,3 +11,7 @@ $(document).ready ->
     $('#search-form')[0].reset()
     xhr = e.originalEvent.detail[2]
     $('#tasks .card-deck').html xhr.responseText
+
+  $('#tasks').on 'ajax:success', 'form.task-form', (e) ->
+    xhr = e.originalEvent.detail[2]
+    $(this).closest('.card').replaceWith xhr.responseText

@@ -11,7 +11,7 @@
     <p><%= task.description %></p>
   </div>
   <div class="card-footer">
-    <%= form_with scope: :task, url: tasks_path, method: :put, model: task do |f| %>
+    <%= form_with scope: :task, url: task_path(task), method: :put, model: task, class: "task-form" do |f| %>
       <% if task.done %>
         <%= f.hidden_field :done, value: false %>
         <%= f.submit "Reset", class: "btn btn-secondary" %>

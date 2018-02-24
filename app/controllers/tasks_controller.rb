@@ -53,6 +53,17 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks
   # PATCH/PUT /tasks/1.json
   def update
+    if @task.update(task_params)
+      respond_to do |format|
+        format.html { render partial: 'task', content_type: 'text/html', locals: {task: @task} }
+        format.json { render json: @task }
+      end
+    else
+      respond_to do |format|
+        format.html { render :error }
+        format.json { render json: @task, status: :unprocessable_entity }
+      end
+    end
   end
 
   # DELETE /tasks/1.json
