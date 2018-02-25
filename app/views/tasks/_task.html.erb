@@ -1,24 +1,5 @@
-<div class="card">
-  <div class="card-header">
-    <h5>
-      <% if task.done? %>
-        Next: <%= task.next_refresh? ? task.next_refresh.strftime("%D") : "???" %>
-      <% else %>
-        <%= task.task_type.titleize %>
-      <% end %>
-		</h5>
-  </div>
-  <div class="card-body">
-    <p><%= task.description %></p>
-  </div>
-  <div class="card-footer">
-    <%= form_with scope: :task, url: task_path(task), method: :put, model: task, class: "task-form" do |f| %>
-			<%= hidden_field_tag :done, (not task.done?)%>
-      <% if task.done? %>
-        <%= f.submit "Reset", class: "btn btn-secondary" %>
-      <% else %>
-        <%= f.submit "Done", class: "btn btn-primary" %>
-      <% end %>
-    <% end %>
-  </div>
-</div>
+<% if task.done? %>
+	<%= render partial: "tasks/finished", locals: {task: task} %>
+<% else %>
+	<%= render partial: "tasks/active", locals: {task: task} %>
+<% end %>

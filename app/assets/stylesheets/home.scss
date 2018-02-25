@@ -4,3 +4,23 @@
 #add-form input[type="submit"] {
   width: 100%;
 }
+
+$cards-per-line: (
+		xs: 1,
+		sm: 2,
+		md: 3,
+		lg: 3,
+		xl: 4
+);
+
+@each $name, $breakpoint in $grid-breakpoints {
+		@media (min-width: $breakpoint) {
+			.card-deck .card {
+				flex: 0 0 calc(#{100/map-get($cards-per-line, $name)}% - #{$grid-gutter-width});
+			}
+		}
+}
+
+.border-white {
+		border-color: white;
+}

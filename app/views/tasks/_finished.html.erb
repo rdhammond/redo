@@ -1,0 +1,14 @@
+<div class="card text-white bg-secondary">
+	<div class="card-header">
+		<h5>Next: <%= task.next_refresh.strftime("%D") %></h5>
+	</div>
+	<div class="card-body">
+		<p><%= task.task_type.titleize %></p>
+	</div>
+	<div class="card-footer">
+		<%= form_with scope: :task, url: task_path(task), method: :put, model: task, class: "task-form" do |f| %>
+			<%= hidden_field_tag "done", value: true %>
+			<%= f.submit "Reset", class: "btn btn-secondary border-white" %>
+		<% end %>
+ </div>
+</div>
