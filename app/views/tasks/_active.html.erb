@@ -1,13 +1,13 @@
-<div class="card text-primary border-primary">
+<div class="card text-primary border-primary mt-4">
 	<div class="card-header">
 		<h5><%= task.task_type.titleize %></h5>
 	</div>
 	<div class="card-body">
-		<p><%= task.task_type.titleize %></p>
+		<p><%= task.description %></p>
 	</div>
 	<div class="card-footer">
 		<%= form_with scope: :task, url: task_path(task), method: :put, model: task, class: "task-form" do |f| %>
-			<%= hidden_field_tag "done", value: true %>
+			<%= hidden_field_tag "done", true %>
 			<%= f.submit "Done", class: "btn btn-primary" %>
 		<% end %>
 	</div>
