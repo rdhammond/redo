@@ -6,6 +6,6 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 Task.create!([
-  {description: 'Daily Task', task_type: :daily, done: false},
-  {description: 'Weekly Task', task_type: :weekly, done: true}
+  {description: 'Daily Task', task_type: :daily},
+  {description: 'Weekly Task', task_type: :weekly, last_completed: Date.today, next_refresh: Date.today + 1.week}
 ])

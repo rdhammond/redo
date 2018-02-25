@@ -35,7 +35,6 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(task_params)
-    @task.done = false
 
     if @task.save
       respond_to do |format|
@@ -53,7 +52,21 @@ class TasksController < ApplicationController
   # PATCH/PUT /tasks
   # PATCH/PUT /tasks/1.json
   def update
-    if @task.update(task_params)
+		parameters = params[:task] ? task_params : {}
+		done = params[:done]
+		done = (done == "true") unless params.nil?
+
+		if not done.nil?
+			if done
+				@task.complete
+			else
+				@task.reset
+			end
+			parameters[:last_completed] = @task.last_completed
+			parameters[:next_refresh] = @task.next_refresh
+		end
+
+    if @task.update(parameters)
       respond_to do |format|
         format.html { render partial: 'task', content_type: 'text/html', locals: {task: @task} }
         format.json { render json: @task }
@@ -78,6 +91,6 @@ class TasksController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_params
-      params.require(:task).permit(:description, :task_type, :done)
+			params.require(:task).permit(:description, :task_type)
     end
 end
