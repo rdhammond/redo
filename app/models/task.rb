@@ -1,4 +1,5 @@
 class Task < ApplicationRecord
+  belongs_to :user
   enum task_type: [ :daily, :weekly, :semi_monthly, :monthly, :semi_yearly, :yearly ]
 
   validates :description, presence: true
