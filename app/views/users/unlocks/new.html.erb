@@ -1,8 +1,11 @@
 <div class="row">
   <div class="col">
     <h2>Resend unlock instructions</h2>
-
-    <%= form_for(resource, as: resource_name, url: unlock_path(resource_name), html: { method: :post }) do |f| %>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <%= form_for resource, as: resource_name, url: unlock_path(resource_name), method: :post do |f| %>
       <%= devise_error_messages! %>
 
       <div class="form-group field">
@@ -14,7 +17,6 @@
         <%= f.submit "Resend unlock instructions", class: "btn btn-submit" %>
       </div>
     <% end %>
-
-    <%= render "devise/shared/links" %>
   </div>
 </div>
+<%= render "users/shared/links" %>
