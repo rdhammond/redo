@@ -11,7 +11,10 @@
   <body>
     <header>
       <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Redo</a>
+        <a class="navbar-brand" href="#">
+            <%= image_tag image_url("Redo-32.png") %>
+            Redo
+        </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -21,22 +24,20 @@
               <%= f.text_field :search, class: "mr-sm-2" %>
               <%= f.submit "Search", class: "btn btn-outline-success my-2 my-sm-m0" %>
             <% end %>
-            <%= form_for :user, url: destroy_session_path(:user), method: :delete do |f| %>
-              <%= f.submit "Sign out", class: "btn btn-primary" %>
-            <% end %>
-          <% else %>
-            <%= link_to "Sign in", new_session_path(:user), {class: "btn btn-primary pull-right"} %>
           <% end %>
-    </header>
-    <div class="container mt-6">
-      <% flash.each do |key, value| %>
-        <% type = (key == "alert") ? "danger" : "info" %>
-        <div class="row">
-          <div class="col">
-            <div class="alert alert-<%= type %>" role="alert"><%= value %></div>
+          <div class="flex-row ml-md-auto d-none d-md-flex">
+            <% if user_signed_in? %>
+              <%= form_for :user, html: {class: "form-inline"}, url: destroy_session_path(:user), method: :delete do |f| %>
+                <%= f.submit "Sign out", class: "btn btn-primary" %>
+              <% end %>
+            <% else %>
+              <%= link_to "Sign in", new_session_path(:user), {class: "btn btn-primary pull-right"} %>
+            <% end %>
           </div>
         </div>
-      <% end %>
+      </nav>
+    </header>
+    <div class="container mt-6">
       <%= yield %>
     </div>
   </body>
