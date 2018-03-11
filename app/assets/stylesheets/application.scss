@@ -14,5 +14,23 @@
 
 .mt-6 { margin-top: 5rem !important; }
 .mb-6 { margin-bottom: 5rem !important; }
+.link-list .list-inline-item {
+    margin-right: 0;
+
+    a { @extend .text-muted; }
+
+    &:not(:last-child) {
+        margin-right: 0;
+    }
+    &:after {
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+        content: "\25cf";
+    }
+    &:last-child:after {
+        margin-right: 0;
+        content: "";
+    }
+}
 
 @import "home";
